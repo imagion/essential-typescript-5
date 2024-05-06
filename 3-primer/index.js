@@ -14,13 +14,17 @@ if (hatPrice === bootsPrice) {
   console.log('Prices are different');
 }
 
-function sumPrices(first, second, third = 0) {
-  return first + second + third;
+function sumPrices(...numbers) {
+  return numbers.reduce(function (total, val) {
+    return total + val;
+  }, 0);
 }
 
 let totalPrice = sumPrices(hatPrice, bootsPrice);
 console.log(`Total: ${totalPrice} ${typeof totalPrice}`);
+
 totalPrice = sumPrices(100, 200, 300);
 console.log(`Total: ${totalPrice} ${typeof totalPrice}`);
+
 totalPrice = sumPrices(100, 200);
 console.log(`Total: ${totalPrice} ${typeof totalPrice}`);
