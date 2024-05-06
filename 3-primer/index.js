@@ -15,9 +15,9 @@ if (hatPrice === bootsPrice) {
 }
 
 function sumPrices(...numbers) {
-  return numbers.reduce(function (total, val) {
-    return total + val;
-  }, 0);
+  return numbers.reduce(
+    (total, val) => total + (Number.isNaN(Number(val)) ? 0 : Number(val)),
+  );
 }
 
 let totalPrice = sumPrices(hatPrice, bootsPrice);
