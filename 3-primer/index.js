@@ -14,14 +14,9 @@ if (hatPrice === bootsPrice) {
   console.log('Prices are different');
 }
 
-let totalPrice = Number(hatPrice) + Number(bootsPrice);
+function sumPrices(first, second, third) {
+  return first + second + third;
+}
+
+let totalPrice = sumPrices(hatPrice, bootsPrice);
 console.log(`Total Price: ${totalPrice}`);
-
-let myVariable = 'Adam';
-console.log(`Type: ${typeof myVariable}`);
-myVariable = 100;
-console.log(`Type: ${typeof myVariable}`);
-
-let firstCity;
-let secondCity = firstCity || 'London';
-console.log(`City: ${secondCity}`);
