@@ -15,12 +15,9 @@ let boots = {
 };
 
 let hatPrototype = Object.getPrototypeOf(hat);
-console.log(`Hat Prototype: ${hatPrototype}`);
+hatPrototype.toString = function () {
+  return `toString: Name: ${this.name}, Price: ${this.price}`;
+};
 
-let bootsPrototype = Object.getPrototypeOf(boots);
-console.log(`Boots Prototype: ${bootsPrototype}`);
-
-console.log(`Common prototype: ${hatPrototype === bootsPrototype}`);
-
-console.log(`Hat: ${hat.price}, ${hat.getPriceIncTax()}`);
-console.log(`toString: ${hat.toString()}`);
+console.log(hat.toString());
+console.log(boots.toString());
