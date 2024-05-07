@@ -1,15 +1,37 @@
-let myObject = {
-  greeting: 'Hi, there',
+let hat = {
+  name: 'Hat',
+  _price: 100,
+  priceIncTax: 100 * 1.2,
 
-  writeMessage(message) {
-    console.log(`${this.greeting}, ${message}`);
+  set price(newPrice) {
+    this._price = newPrice;
+    this.priceI;
+    ncTax = this._price * 1.2;
+  },
+
+  get price() {
+    return this._price;
+  },
+
+  writeDetails() {
+    console.log(`${this.name}: ${this.price}, ${this.priceIncTax}`);
   },
 };
 
-myObject.writeMessage = myObject.writeMessage.bind(myObject);
+let boots = {
+  name: 'Boots',
+  price: '100',
 
-greeting = 'Hello';
-myObject.writeMessage('It is sunny today');
+  get priceIncTax() {
+    return Number(this.price) * 1.2;
+  },
+};
 
-let myFunction = myObject.writeMessage;
-myFunction('It is sunny today');
+hat.writeDetails = hat.writeDetails.bind(hat);
+hat.writeDetails();
+hat.price = 120;
+hat.writeDetails();
+
+console.log(`Boots: ${boots.price}, ${boots.priceIncTax}`);
+boots.price = '120';
+console.log(`Boots: ${boots.price}, ${boots.priceIncTax}`);
