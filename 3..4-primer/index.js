@@ -1,4 +1,4 @@
-import calcTax from './tax.js';
+import calcTaxAndSum, { calculateTax } from './tax.js';
 
 class Product {
   constructor(name, price) {
@@ -13,5 +13,9 @@ class Product {
 }
 
 let product = new Product('Hat', 100);
-let taxedPrice = calcTax(product.price);
+let taxedPrice = calculateTax(product.price);
 console.log(`Name: ${product.name}, Taxed Price: ${taxedPrice}`);
+
+let products = [new Product('Gloves', 23), new Product('Boots', 100)];
+let totalPrice = calcTaxAndSum(...products.map((p) => p.price));
+console.log(`Total Price: ${totalPrice.toFixed(2)}`);
