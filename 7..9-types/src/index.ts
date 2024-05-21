@@ -9,5 +9,6 @@ function writePrice(product: string, price: number): void {
 let hat: [string, number] = ['Hat', 100];
 let gloves: [string, number] = ['Gloves', 75];
 
-writePrice(hat[0], hat[1]);
-writePrice(gloves[0], gloves[1]);
+let [hatname, hatprice] = hat;
+console.log(`Name: ${hatname}`);
+console.log(`Price: ${hatprice.toFixed(2)}`);
