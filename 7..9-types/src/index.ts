@@ -1,32 +1,10 @@
-function calculateTax(amount: number): number {
-  return amount * 1.2;
-}
+let restrictedValue: 1 | 2 | 3 = 3;
+// let restrictedValue: 1 | 2 | 3 = 100;
 
-function writePrice(product: string, price: number): void {
-  console.log(`Price for ${product}: $${price.toFixed(2)}`);
-}
+let secondValue: 1 | 10 | 100 = 1;
 
-enum Product {
-  Hat,
-  Gloves,
-  Umbrella,
-}
+restrictedValue = secondValue;
+secondValue = 100;
+restrictedValue = secondValue;
 
-let products: [Product, number][] = [
-  [Product.Hat, 100],
-  [Product.Gloves, 75],
-];
-
-products.forEach((prod: [Product, number]) => {
-  switch (prod[0]) {
-    case Product.Hat:
-      writePrice('Hat', calculateTax(prod[1]));
-      break;
-    case Product.Gloves:
-      writePrice('Gloves', calculateTax(prod[1]));
-      break;
-    case Product.Umbrella:
-      writePrice('Umbrella', calculateTax(prod[1]));
-      break;
-  }
-});
+console.log(`Value: ${restrictedValue}`);
