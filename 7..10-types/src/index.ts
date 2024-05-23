@@ -3,6 +3,12 @@ enum Feature {
   Insulated,
 }
 
+type Product = {
+  name: string;
+  price?: number;
+  hasFeature?(Feature): boolean;
+};
+
 let hat = { name: 'Hat', price: 100 };
 let gloves = { name: 'Gloves', price: 75 };
 let umbrella = {
@@ -11,11 +17,7 @@ let umbrella = {
   hasFeature: (feature) => feature === Feature.Waterproof,
 };
 
-let products: {
-  name: string;
-  price?: number;
-  hasFeature?(Feature): boolean;
-}[] = [hat, gloves, umbrella];
+let products: Product[] = [hat, gloves, umbrella];
 
 products.forEach((prod) =>
   console.log(
