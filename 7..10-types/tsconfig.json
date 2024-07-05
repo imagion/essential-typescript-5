@@ -3,7 +3,6 @@
     "target": "ES2022",
     "outDir": "./dist",
     "rootDir": "./src",
-    "declaration": true,
-    "strictNullChecks": true
+    "declaration": true
   }
 }
