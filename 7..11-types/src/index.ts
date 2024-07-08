@@ -5,7 +5,7 @@ type Person = {
 };
 
 class Employee {
-  public id: string;
+  public readonly id: string;
   public name: string;
   private dept: string;
   private city: string;
@@ -24,6 +24,6 @@ class Employee {
 
 let salesEmployee = new Employee('fvega', 'Fidel Vega', 'Sales', 'Paris');
 
-// console.log(`Dept value: ${salesEmployee.dept}`);
-
 salesEmployee.writeDept();
+
+salesEmployee.id = 'fidel';
