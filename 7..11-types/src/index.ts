@@ -1,46 +1,44 @@
-type Person = {
-  id: string;
-  name: string;
-  city: string;
-};
+abstract class Person {
+  constructor(public id: string, public name: string, public city: string) {}
 
-class Employee {
-  private city: string;
+  getDetails(): string {
+    return `${this.name}, ${this.getSpecificDetails()}`;
+  }
 
+  abstract getSpecificDetails(): string;
+}
+class Employee extends Person {
   constructor(
     public readonly id: string,
     public name: string,
     private dept: string,
-    city: string,
+    public city: string,
   ) {
-    this.city = city;
+    super(id, name, city);
   }
 
-  writeDept() {
-    console.log(`${this.name} works in ${this.dept}`);
+  getSpecificDetails() {
+    return `works in ${this.dept}`;
   }
-
-  get location() {
-    switch (this.city) {
-      case 'Paris':
-        return 'France';
-      case 'London':
-        return 'UK';
-      default:
-        return this.city;
-    }
-  }
-
-  get details() {
-    return `${this.name}, ${this.dept}, ${this.location}`;
-  }
-
-  accessor salary: number = 100_000;
 }
 
-let salesEmployee = new Employee('fvega', 'Fidel Vega', 'Sales', 'Paris');
+class Customer {
+  constructor(
+    public readonly id: string,
+    public name: string,
+    public city: string,
+    public creditLimit: number,
+  ) {}
+}
 
-salesEmployee.writeDept();
-console.log(`Location: ${salesEmployee.location}`);
-console.log(`Details: ${salesEmployee.details}`);
-console.log(`Salary: ${salesEmployee.salary}`);
+let data: (Person | Customer)[] = [
+  new Employee('fvega', 'Fidel Vega', 'Sales', 'Paris'),
+  new Customer('ajones', 'Alice Jones', 'London', 500),
+];
+data.forEach((item) => {
+  if (item instanceof Person) {
+    console.log(item.getDetails());
+  } else {
+    console.log(`Customer: ${item.name}`);
+  }
+});
