@@ -1,61 +1,30 @@
-interface Person {
+interface Product {
   name: string;
-  getDetails(): string;
-
-  dogName?: string;
-  getDogDetails?(): string;
+  price: number;
 }
 
-interface DogOwner {
-  dogName: string;
-  getDogDetails(): string;
-}
-
-class Employee implements Person {
+class SportsProduct implements Product {
   constructor(
-    public readonly id: string,
     public name: string,
-    private dept: string,
-    public city: string,
+    public category: string,
+    public price: number,
   ) {
     // no statements required
   }
-
-  getDetails() {
-    return `${this.name} works in ${this.dept}`;
-  }
 }
 
-class Customer implements Person {
-  constructor(
-    public readonly id: string,
-    public name: string,
-    public city: string,
-    public creditLimit: number,
-    public dogName,
-  ) {
-    // no statements required
+class ProductGroup {
+  constructor(...initialProducts: [string, Product][]) {
+    initialProducts.forEach((p) => (this[p[0]] = p[1]));
   }
 
-  getDetails() {
-    return `${this.name} has ${this.creditLimit} limit`;
-  }
-
-  getDogDetails() {
-    return `${this.name} has a dog named ${this.dogName}`;
-  }
+  [propertyName: string]: Product;
 }
 
-let alice = new Customer('ajones', 'Alice Jones', 'London', 500, 'Fido');
+let group = new ProductGroup([
+  'shoes',
+  new SportsProduct('Shoes', 'Running', 90.5),
+]);
 
-let data: Person[] = [
-  new Employee('fvega', 'Fidel Vega', 'Sales', 'Paris'),
-  alice,
-];
-
-data.forEach((item) => {
-  console.log(item.getDetails());
-  if (item.getDogDetails) {
-    console.log(item.getDogDetails());
-  }
-});
+group.hat = new SportsProduct('Hat', 'Skiing', 20);
+Object.keys(group).forEach((k) => console.log(`Property Name: ${k}`));
