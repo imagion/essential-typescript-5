@@ -1,6 +1,9 @@
 interface Person {
   name: string;
   getDetails(): string;
+
+  dogName?: string;
+  getDogDetails?(): string;
 }
 
 interface DogOwner {
@@ -23,7 +26,7 @@ class Employee implements Person {
   }
 }
 
-class Customer implements Person, DogOwner {
+class Customer implements Person {
   constructor(
     public readonly id: string,
     public name: string,
@@ -45,13 +48,14 @@ class Customer implements Person, DogOwner {
 
 let alice = new Customer('ajones', 'Alice Jones', 'London', 500, 'Fido');
 
-let dogOwners: DogOwner[] = [alice];
-
-dogOwners.forEach((item) => console.log(item.getDogDetails()));
-
 let data: Person[] = [
   new Employee('fvega', 'Fidel Vega', 'Sales', 'Paris'),
   alice,
 ];
 
-data.forEach((item) => console.log(item.getDetails()));
+data.forEach((item) => {
+  console.log(item.getDetails());
+  if (item.getDogDetails) {
+    console.log(item.getDogDetails());
+  }
+});
