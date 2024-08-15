@@ -1,33 +1,30 @@
-import React, { FunctionComponent, useState } from 'react';
-import {
-  Product,
-  ProductSelection,
-  ProductSelectionMutations,
-} from './data/entities';
+import React, { FunctionComponent, useMemo } from 'react';
+import { Product } from './data/entities';
 import { ProductList } from './productList';
-
-let testData: Product[] = [1, 2, 3, 4, 5].map((num) => ({
-  id: num,
-  name: `Prod${num}`,
-  category: `Cat${num % 2}`,
-  description: `Product ${num}`,
-  price: 100,
-}));
+import {
+  useAppDispatch,
+  useAppSelector,
+  reducers,
+  queries,
+} from './data/dataStore';
 
 export const App: FunctionComponent = () => {
-  const [selections, setSelections] = useState(Array<ProductSelection>());
-  const addToOrder = (product: Product, quantity: number) => {
-    setSelections((curr) => {
-      ProductSelectionMutations.addProduct(curr, product, quantity);
-      return [...curr];
-    });
-  };
-  const categories = [...new Set(testData.map((p) => p.category))];
+  const selections = useAppSelector((state) => state.selections);
+  const dispatch = useAppDispatch();
+
+  const { data } = queries.useGetProductsQuery();
+
+  const addToOrder = (p: Product, q: number) =>
+    dispatch(reducers.addToOrder([p, q]));
+
+  const categories = useMemo<string[]>(() => {
+    return [...new Set(data?.map((p) => p.category))];
+  }, [data]);
 
   return (
     <div className='App'>
       <ProductList
-        products={testData}
+        products={data ?? []}
         categories={categories}
         selections={selections}
         addToOrder={addToOrder}
