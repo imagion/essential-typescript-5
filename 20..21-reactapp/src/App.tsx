@@ -7,6 +7,7 @@ import {
   reducers,
   queries,
 } from './data/dataStore';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 export const App: FunctionComponent = () => {
   const selections = useAppSelector((state) => state.selections);
@@ -23,12 +24,20 @@ export const App: FunctionComponent = () => {
 
   return (
     <div className='App'>
-      <ProductList
-        products={data ?? []}
-        categories={categories}
-        selections={selections}
-        addToOrder={addToOrder}
-      />
+      <Routes>
+        <Route
+          path='/products'
+          element={
+            <ProductList
+              products={data ?? []}
+              categories={categories}
+              selections={selections}
+              addToOrder={addToOrder}
+            />
+          }
+        />
+        <Route path='/' element={<Navigate replace to='/products' />} />
+      </Routes>
     </div>
   );
 };
