@@ -7,7 +7,10 @@ import {
   reducers,
   queries,
 } from './data/dataStore';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Summary } from './summary';
+import { OrderDetails } from './orderDetails';
+import { resetSelections } from './data/selectionSlice';
 
 export const App: FunctionComponent = () => {
   const selections = useAppSelector((state) => state.selections);
@@ -21,7 +24,16 @@ export const App: FunctionComponent = () => {
   const categories = useMemo<string[]>(() => {
     return [...new Set(data?.map((p) => p.category))];
   }, [data]);
-
+  const [storeOrder] = reducers.useStoreOrderMutation();
+  const navigate = useNavigate();
+  const submitCallback = () => {
+    storeOrder(selections)
+      .unwrap()
+      .then((id) => {
+        dispatch(resetSelections());
+        navigate(`/summary/${id}`);
+      });
+  };
   return (
     <div className='App'>
       <Routes>
@@ -36,7 +48,17 @@ export const App: FunctionComponent = () => {
             />
           }
         />
-        <Route path='/' element={<Navigate replace to='/products' />} />
+        <Route
+          path='/order'
+          element={
+            <OrderDetails
+              selections={selections}
+              submitCallback={() => submitCallback()}
+            />
+          }
+        />
+        <Route path='/summary/:id' element={<Summary />} />
+        <Route path='*' element={<Navigate replace to='/products' />} />
       </Routes>
     </div>
   );
